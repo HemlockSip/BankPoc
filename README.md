@@ -10,3 +10,13 @@ Global Value Set "Home Country". Values as the full name of the Country for bett
 
 
 
+# Solution One
+LWC That displays every info though queries
+
+
+# Solution Two
+Product__c is a Lookup instead of a Picklist and the Lookup has a filter that prevents connecting the wrong Product Records because is it Based on the Home Country field
+
+
+# Solution 3?
+This would be a native component on the UI to display related records fields
