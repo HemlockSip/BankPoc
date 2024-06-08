@@ -1,13 +1,10 @@
-public with sharing class CustomerRelatedProductController {
- 
-    @AuraEnabled(cacheable=true)
+public with sharing class ContactProductUtils {
     public static Product2 getCustomerProduct(Id contactId) {
 
         System.debug('Contact ID: ' + contactId);  
         
         try {
-            //First Query to get the Product Name and Home Country of the Contact  //TODO REWORKA IL CODICE PER FARE IN MODO CHE UN METODO GESTISCA LA QUERY CONTACT E UNO SEPARATO LA QUERY PRODUCT
-            // IN QUESTO MODO POTRO' RIUSARE IL PIU' POSSIBILE IL CODICE ANCHE PER IL WEBSERVICE
+            //First Query to get the Product Name and Home Country of the Contact
             Contact customerContact = [SELECT Id, Product__c,Home_Country__c
                                         FROM Contact
                                         WHERE Id =: contactId
@@ -31,14 +28,4 @@ public with sharing class CustomerRelatedProductController {
         }
             
     }   
-
-    //Let's reuse the method from the Utils Class
-
-    @AuraEnabled(cacheable=true)
-    public static Product2 getCustomerProductComponent(Id contactId) {
-        return ContactProductUtils.getCustomerProduct(contactId);
-    }
-
-
-
 }

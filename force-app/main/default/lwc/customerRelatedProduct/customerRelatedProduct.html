@@ -1,34 +1,30 @@
 <template>
-    <lightning-card title="Related Contact and Product Data" icon-name="standard:account">
-        <template if:true={contact}>
-            <div class="slds-m-around_medium">
-                <h2>Contact Information</h2>
-                <p>First Name: {contact.FirstName}</p>
-                <p>Last Name: {contact.LastName}</p>
-                <p>Email: {contact.Email}</p>
-                <p>Phone: {contact.Phone}</p>
-                <p>Home Country: {contact.Home_Country__c}</p>
+    <template if:true={hasProduct}>
+        <lightning-card title="Product Details" icon-name="standard:product">
+            <div class="slds-p-around_medium">
+                <p class="slds-text-heading_small"><strong>Product Name:</strong> {product.Name}</p>
+                <p class="slds-text-body_regular"><strong>Product Code:</strong> {product.ProductCode}</p>
+                <p class="slds-text-body_regular"><strong>Description:</strong> {product.Description}</p>
+                <p class="slds-text-body_regular"><strong>Family:</strong> {product.Family}</p>
+                <p class="slds-text-body_regular"><strong>Home Country:</strong> {product.Home_Country__c}</p>
+                <p class="slds-text-body_regular"><strong>Cost per Calendar Month:</strong> {product.Cost_per_Calendar_Month__c} {currency}</p>
+                <p class="slds-text-body_regular"><strong>ATM Fee in other Currencies:</strong> {product.ATM_Fee_in_other_Currencies__c} %</p>
+                <p class="slds-text-body_regular"><strong>Card Replacement Cost:</strong> {product.Card_Replacement_Cost__c} {currency}</p>
             </div>
-        </template>
-
-        <template if:true={product}>
-            <div class="slds-m-around_medium">
-                <h2>Product Information</h2>
-                <p>Product Name: {product.Name}</p>
-                <p>Product Code: {product.ProductCode}</p>
-                <p>Description: {product.Description}</p>
-                <p>Family: {product.Family}</p>
-                <p>Is Active: {product.IsActive}</p>
-                <p>Cost per Calendar Month: {product.Cost_per_Calendar_Month__c}</p>
-                <p>ATM Fee in Other Currencies: {product.ATM_Fee_in_other_Currencies__c}</p>
-                <p>Card Replacement Cost: {product.Card_Replacement_Cost__c}</p>
+        </lightning-card>
+    </template>
+    <template if:true={error}>
+        <lightning-card title="Error" icon-name="utility:error">
+            <div class="slds-p-around_medium">
+                <p>Error loading product details: {error}</p>
             </div>
-        </template>
-
-        <template if:true={error}>
-            <div class="slds-m-around_medium">
-                <p>Error fetching related data: {error.message}</p>
+        </lightning-card>
+    </template>
+    <template if:false={hasProduct}>
+        <lightning-card title="Loading" icon-name="utility:refresh">
+            <div class="slds-p-around_medium">
+                <p>Loading product details...</p>
             </div>
-        </template>
-    </lightning-card>
+        </lightning-card>
+    </template>
 </template>
