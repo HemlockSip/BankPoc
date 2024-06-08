@@ -1,6 +1,8 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
-import getCustomerProductComponent from '@salesforce/apex/CustomerRelatedProductController.getCustomerProductComponent';
+//import getCustomerProductComponent from '@salesforce/apex/CustomerRelatedProductController.getCustomerProductComponent';
+//import getCustomerId from '@salesforce/apex/CustomerRelatedProductController.getCustomerId';
+import getCustomerProductComponent2 from '@salesforce/apex/CustomerRelatedProductController.getCustomerProductComponent2';
 
 const FIELDS = ['Case.ContactId'];
 const PRODUCT_FIELDS = ['Product2.Name', 'Product2.Home_Country__c'];
@@ -26,7 +28,7 @@ export default class CustomerProduct extends LightningElement {
     error;
 
     // Fetch the Product2 data using the ContactId
-    @wire(getCustomerProductComponent, { contactId: '$contactId' })
+    @wire(getCustomerProductComponent2, { contactId: '$contactId' })
     wiredProduct({ error, data }) {
         if (data) {
             this.product = data;
