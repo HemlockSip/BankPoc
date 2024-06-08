@@ -10,11 +10,12 @@ public with sharing class ContactProductUtils {
     }
 
     public static Contact getContactByUniqueIdentifier(String uniqueIdentiefier){
-        return [SELECT Id, Product__c, Home_Country__c
-                FROM Contact
-                WHERE Unique_Identifier__c =: uniqueIdentiefier
-                WITH SECURITY_ENFORCED
-                LIMIT 1];
+        Contact customerContact = [SELECT Id, Product__c, Home_Country__c
+                                    FROM Contact
+                                    WHERE Unique_Identifier__c =: uniqueIdentiefier
+                                    WITH SECURITY_ENFORCED
+                                    LIMIT 1];
+        return customerContact;
     }
 
     public static Product2 getCustomerProduct(Contact customerContact) {
