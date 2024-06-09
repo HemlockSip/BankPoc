@@ -6,18 +6,14 @@ private with sharing class ContactProductUtils_Test {
     private static void positiveOutcome() {
         // the purpose of this test method is to verify a successful scenario where all the data is present and correct
         
-        Account testAccount = new Account(Name = 'Test Account');
-        insert testAccount;
-
-        Contact testContact = new Contact(FirstName = 'Test', LastName = 'Contact', AccountId = testAccount.Id, Product__c = 'Standard', Home_Country__c = 'UK');
-        insert testContact;
-
-        Product2 testProduct = new Product2(Name = 'Standard', ProductCode = 'STD', Description = 'Standard Product', IsActive = true, Home_Country__c = 'UK', Cost_per_Calendar_Month__c = 0, ATM_Fee_in_other_Currencies__c = 1.7, Card_Replacement_Cost__c = 6);
-        insert testProduct;
-
-        Case testCase = new Case(ContactId = testContact.Id);
-        insert testCase;
-
+        Account testAccount = TestDataFactory.TestAccount();
+        
+        Contact testContact = TestDataFactory.TestFullContact(testAccount.Id);
+        
+        Product2 testProduct = TestDataFactory.TestProduct();
+        
+        Case testCase = TestDataFactory.TestCase(testContact.Id);
+        
    
         Contact actualContact = ContactProductUtils.getContactById(testCase.ContactId);
         Product2 actualProduct = ContactProductUtils.getCustomerProduct(actualContact);
@@ -30,17 +26,13 @@ private with sharing class ContactProductUtils_Test {
     private static void emptyContact() {
         // the purpose of this test method is to verify an unsuccessful scenario where a contact is missing some data and therefore no product will be found
         
-        Account testAccount = new Account(Name = 'Test Account');
-        insert testAccount;
-
-        Contact testContact = new Contact(FirstName = 'Test', LastName = 'Contact', AccountId = testAccount.Id, Home_Country__c = 'UK');
-        insert testContact;
-
-        Product2 testProduct = new Product2(Name = 'Standard', ProductCode = 'STD', Description = 'Standard Product', IsActive = true, Home_Country__c = 'UK', Cost_per_Calendar_Month__c = 0, ATM_Fee_in_other_Currencies__c = 1.7, Card_Replacement_Cost__c = 6);
-        insert testProduct;
-
-        Case testCase = new Case(ContactId = testContact.Id);
-        insert testCase;
+        Account testAccount = TestDataFactory.TestAccount();
+        
+        Contact testContact = TestDataFactory.TestIncompleteContact(testAccount.Id);
+        
+        Product2 testProduct = TestDataFactory.TestProduct();
+        
+        Case testCase = TestDataFactory.TestCase(testContact.Id);
 
         try {
 
@@ -62,17 +54,13 @@ private with sharing class ContactProductUtils_Test {
     private static void noContact() {
         // the purpose of this test method is to verify an unsuccessful scenario where the case has no related contact
         
-        Account testAccount = new Account(Name = 'Test Account');
-        insert testAccount;
-
-        Contact testContact = new Contact(FirstName = 'Test', LastName = 'Contact', AccountId = testAccount.Id, Home_Country__c = 'UK');
-        insert testContact;
-
-        Product2 testProduct = new Product2(Name = 'Standard', ProductCode = 'STD', Description = 'Standard Product', IsActive = true, Home_Country__c = 'UK', Cost_per_Calendar_Month__c = 0, ATM_Fee_in_other_Currencies__c = 1.7, Card_Replacement_Cost__c = 6);
-        insert testProduct;
-
-        Case testCase = new Case();
-        insert testCase;
+        Account testAccount = TestDataFactory.TestAccount();
+        
+        Contact testContact = TestDataFactory.TestIncompleteContact(testAccount.Id);
+        
+        Product2 testProduct = TestDataFactory.TestProduct();
+        
+        Case testCase = TestDataFactory.TestCaseNoContact();
 
         try {
 
