@@ -39,7 +39,7 @@ export default class CustomerProduct extends LightningElement {
             }
             this.error = undefined;
         } else if (error) {
-            this.error = error;
+            this.error = "Error in finding the Customer's Product. Make sure the Customer record has a Product and a Home Country specified.";
             this.product = undefined;
         }
     }

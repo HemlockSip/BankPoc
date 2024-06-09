@@ -1,12 +1,19 @@
 public with sharing class ContactProductUtils {
 
     public static Contact getContactById(Id contactId) {
-        Contact customerContact = [SELECT Id, Product__c, Home_Country__c
+        
+        try {
+            Contact customerContact = [SELECT Id, Product__c, Home_Country__c
                                     FROM Contact
                                     WHERE Id =: contactId
                                     WITH SECURITY_ENFORCED
                                     LIMIT 1];
-        return customerContact;
+            return customerContact;
+            
+        } catch (Exception e) {
+            throw new QueryException(e.getMessage());
+        }
+        
     }
 
     public static Contact getContactByUniqueIdentifier(String uniqueIdentiefier){
@@ -35,8 +42,8 @@ public with sharing class ContactProductUtils {
             System.debug('Customer Product: ' + customerProduct);
             return customerProduct;
 
-        } catch (Exception excep) {
-            throw new AuraHandledException(excep.getMessage());
+        } catch (Exception e) {
+            throw new QueryException(e.getMessage());
         }
             
     }   
