@@ -4,25 +4,11 @@ private with sharing class CustomerProductResource_Test {
     @IsTest
     private static void  positiveScenario() {
 
-         // Create a mock Contact and Product2
-         Contact testContact = new Contact(
-            FirstName = 'Test',
-            LastName = 'User',
-            Unique_Identifier__c = '12345',
-            Product__c = 'Standard',
-            Home_Country__c = 'UK'
-        );
-        insert testContact;
+        Account testAccount = TestDataFactory.TestAccount();
+        // Create a mock Contact and Product2
+        Contact testContact = TestDataFactory.TestFullContact(testAccount.Id);
 
-        Product2 testProduct = new Product2(
-            Name = 'Standard',
-            Home_Country__c = 'UK',
-            Cost_per_Calendar_Month__c = 100,
-            ATM_Fee_in_other_Currencies__c = 10,
-            Card_Replacement_Cost__c = 5,
-            IsActive = true
-        );
-        insert testProduct;
+        Product2 testProduct = TestDataFactory.TestProduct();
 
         // Create a new RestRequest
         RestRequest req = new RestRequest();
