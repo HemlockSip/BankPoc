@@ -2,21 +2,8 @@
 
 This PoC is created by considering a Service Cloud environment that has no access to any Sales Cloud feature.
 
+For exercise 1, I built a LWC displayed on the Case Record Page that shows key data to the user about the Customer Product.
 
-Enabled State/Territory Picklists for ease of maintenance. 
+For exercise 2, I create a REST resource that enables an external system to access data of the Customer Product.
 
-
-Global Value Set "Home Country". Values as the full name of the Country for better UX, API Names are the ISO codes to allow easier system integration in case Country Names differ from System to System
-
-
-
-# Solution One
-LWC That displays every info though queries
-
-
-# Solution Two
-Product__c is a Lookup instead of a Picklist and the Lookup has a filter that prevents connecting the wrong Product Records because is it Based on the Home Country field
-
-
-# Solution 3?
-This would be a native component on the UI to display related records fields
+Tests take into account positive and negative scenarios where data may be missing.
