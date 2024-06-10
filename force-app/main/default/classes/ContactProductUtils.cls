@@ -1,3 +1,6 @@
+/**
+* The purpose of this class is to handle the logic necessary to retrieve the Contact and Product details based on the Contact Id or Unique Identifier.
+*/
 public with sharing class ContactProductUtils {
 
     public static Contact getContactById(Id contactId) {
@@ -17,12 +20,19 @@ public with sharing class ContactProductUtils {
     }
 
     public static Contact getContactByUniqueIdentifier(String uniqueIdentiefier){
-        Contact customerContact = [SELECT Id, Product__c, Home_Country__c
+
+        try {
+            Contact customerContact = [SELECT Id, Product__c, Home_Country__c
                                     FROM Contact
                                     WHERE Unique_Identifier__c =: uniqueIdentiefier
                                     WITH SECURITY_ENFORCED
                                     LIMIT 1];
         return customerContact;
+
+        } catch (Exception e) {
+            throw new QueryException(e.getMessage());
+        }
+        
     }
 
     public static Product2 getCustomerProduct(Contact customerContact) {
@@ -32,7 +42,7 @@ public with sharing class ContactProductUtils {
             System.debug('Customer Contact: ' + customerContact);
 
             //Query to get the Product details based on the Product Name and Home Country of the Contact
-            Product2 customerProduct = [SELECT Id, Name, ProductCode, Description, Family, IsActive, Home_Country__c, Cost_per_Calendar_Month__c, ATM_Fee_in_other_Currencies__c, Card_Replacement_Cost__c
+            Product2 customerProduct = [SELECT Id, Name,Home_Country__c, Cost_per_Calendar_Month__c, ATM_Fee_in_other_Currencies__c, Card_Replacement_Cost__c
                                         FROM Product2 
                                         WHERE Name =: customerContact.Product__c
                                         AND Home_Country__c =: customerContact.Home_Country__c

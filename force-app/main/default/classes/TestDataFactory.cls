@@ -1,6 +1,14 @@
+/**
+* The purpose of this class is to create test data for all the involved test classes.
+* It returns a record for each Object
+* Account
+* Contact
+* Product2
+* Case
+*/
 public with sharing class TestDataFactory {
 
-    public static Account TestAccount() {
+    public static Account testAccount() {
 
         Account testAccount = new Account(
                                         Name = 'Test Account'
@@ -10,7 +18,8 @@ public with sharing class TestDataFactory {
 
     }
 
-    public static Contact TestFullContact(Id accountId) {
+    // Create a full contact with all the necessary fields for successfull scenarios
+    public static Contact testFullContact(Id accountId) {
 
         Contact testContact = new Contact(
                                         FirstName = 'Test',
@@ -25,7 +34,8 @@ public with sharing class TestDataFactory {
 
     }
 
-    public static Contact TestIncompleteContact(Id accountId) {
+    // Create a contact with missing fields for negative scenarios
+    public static Contact testIncompleteContact(Id accountId) {
 
         Contact testContact = new Contact(
                                         FirstName = 'Test',
@@ -40,7 +50,7 @@ public with sharing class TestDataFactory {
 
 
 
-    public static Product2 TestProduct() {
+    public static Product2 testProduct() {
 
         Product2 testProduct = new Product2(
                                         Name = 'Standard',
@@ -57,7 +67,8 @@ public with sharing class TestDataFactory {
 
     }
 
-    public static Case TestCase(Id contactId) {
+    // Create a case associated with a Contact
+    public static Case testCase(Id contactId) {
 
         Case testCase = new Case(
                                 ContactId = contactId
@@ -67,7 +78,8 @@ public with sharing class TestDataFactory {
 
     }
 
-    public static Case TestCaseNoContact() {
+    // Create a case not associated with a Contact
+    public static Case testCaseNoContact() {
 
         Case testCase = new Case();
         insert testCase;
