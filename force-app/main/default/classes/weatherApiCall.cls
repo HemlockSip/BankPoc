@@ -63,6 +63,18 @@ public with sharing class weatherApiCall {
     // TO DO: I will also need a method that for each Country, it will get its country code to be used as a parameter for the GeoLocAPI
 
 
+    private static Map<String, String> getCountryCode(Set<String> setOfCountries){
+        
+        Map<String, String> countryCodeMap = new Map<String, String>();
+        for(Country_Code__c code : [SELECT Name, Iso_Code__c FROM Country_Code__c WHERE Name IN :setOfCountries WITH Security_Enforced]){
+            countryCodeMap.put((String)code.Name, (String)code.Iso_Code__c);
+        }
+        return countryCodeMap;
+    }
+
+
+
+
     // I will need a method that for each City and Country, it gets the latitude and the longitude via API
 
     public static void getLatitudeAndLongitude(){
